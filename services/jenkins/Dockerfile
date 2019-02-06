@@ -13,6 +13,6 @@ RUN add-apt-repository \
    stable"
         
 RUN apt-get update  -qq \ 
-    && apt-get install docker-ce=18.09.3~ce-0~debian-stretch -y
+    && apt-get install docker-ce=18.09.1~ce-3-0~debian-stretch -y
  
 RUN usermod -aG docker jenkins

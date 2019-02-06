@@ -23,6 +23,13 @@ for i in 2 3 4; do
     -- docker swarm join --token ${TOKEN} $(docker-machine ip devnode-1):2377;
 done
 
+echo "Preparing Swarm nodes to handle ELK stack..."
+
+for i in 1 2 3 4; do
+  docker-machine ssh devnode-$i \
+  -- sudo sysctl -w vm.max_map_count=262144
+done
+
 
 echo "Creating secret..."
 

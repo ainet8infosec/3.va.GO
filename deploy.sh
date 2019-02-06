@@ -4,7 +4,8 @@
 echo "Spinning up four VMs/droplets..."
 
 for i in 1 2 3 4; do
-  docker-machine create \
+  docker-machine create -d virtualbox \
+    --virtualbox-memory 2048 \
     devnode-$i;
 done
 

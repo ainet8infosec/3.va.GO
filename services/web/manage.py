@@ -18,8 +18,8 @@ def recreate_db():
 def seed_db():
     """Seeds the database."""
     db.session.add(User(
-        username='3vaGO',
-        email='3vaGO@localhost.local',
+        username='3.va.GO',
+        email='3_va_GO@localhost.local',
     ))
     db.session.commit()
 

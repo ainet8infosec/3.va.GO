@@ -75,9 +75,8 @@ echo "Get the IP address..."
 
 sleep 10
 eval $(docker-machine env $MANAGER)
-IP= $(docker-machine ip $(docker service ps -f "desired-state=running" --format "{{.Node}}" flask_elk_nginx))
 echo "NGINX is running on..."
-echo $IP
+docker-machine ip $(docker service ps -f "desired-state=running" --format "{{.Node}}" flask_elk_nginx)
 
 echo "Build ELK images and push them to local DTR"
 

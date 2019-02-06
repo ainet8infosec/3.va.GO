@@ -6,3 +6,8 @@
 
 ##### Prerequisite 1 --> https://docs.docker.com/machine/
 ##### Prerequisite 2 --> https://www.virtualbox.org/
+
+Assuming a 16GB-min-RAM DEV *niX node with latest docker-ce installed, alongside docker-machine and virtualbox for Docker Swarm enablement and simulation.
+
+Clone this and run a first deployment using ####sh deploy.sh#####
+Cleanup everything after playing around using ####sh cleanup.sh#####

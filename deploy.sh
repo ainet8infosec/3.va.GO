@@ -58,7 +58,7 @@ docker push localhost:50000/flask-docker-swarm_nginx:latest
 
 echo "Deploying the Flask microservices..."
 
-docker stack deploy --compose-file=docker-compose-swarm.yml flask_elk
+docker stack deploy --compose-file=docker-compose-flask-stack.yml flask_elk
 
 echo "Create the DB table and apply the seed..."
 

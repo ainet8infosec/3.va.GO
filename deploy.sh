@@ -40,10 +40,11 @@ echo "Creating secret..."
 eval $(docker-machine env $MANAGER)
 echo "3.va.GO" | docker secret create secret_code -
 
-echo "Create a docker visualizer helper service!!!!"
+echo "Create a docker visualizer helper service on the manager node!!!!"
 
 docker service create --name docker-visualizer \
     --publish 8080:8080 \
+    --constraint 'node.role == manager' \
     --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock \
     dockersamples/visualizer:latest
 

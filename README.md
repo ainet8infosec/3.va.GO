@@ -9,6 +9,15 @@
 
 Assuming a 16GB-min-RAM DEV *niX node with latest docker-ce installed, alongside docker-machine and virtualbox for Docker Swarm enablement and simulation.
 
-Clone this and run a first deployment with `$ sh deploy.sh`
+Clone this repo and run a first deployment with `$ sh deploy.sh`
+
+Expected Dockerized Outcome --> NGINX+FLASK+POSTGRES+ELK+VISUALIZER+PORTAINER+JENKINSCI 
+
+Access Visualizer via HTTP at IP `docker-machine devnode-1 ip` PORT 8080.
+Access Portainer via HTTP at IP `docker-machine devnode-1 ip` PORT 9000.
+Access JenkinsCI via HTTP at IP `docker-machine devnode-1 ip` PORT 8888.
+Access NGINX FLASK frontend via HTTP at IP `docker-machine devnode-1 ip` PORT 80
+    >explore context-path /users for retrieving users table from POSTGRES via JSON
+    >explore context-path /ping for a plain pong JSON reply
 
 Cleanup everything after playing around via `$ sh cleanup.sh`

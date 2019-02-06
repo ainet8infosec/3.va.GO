@@ -1,9 +1,8 @@
 #!/bin/bash
 
+echo "Spinning up five 2GB RAM VMs/droplets..."
 
-echo "Spinning up four 2GB RAM VMs/droplets..."
-
-for i in 1 2 3 4; do
+for i in 1 2 3 4 5; do
   docker-machine create -d virtualbox \
     --virtualbox-memory 2048 \
     devnode-$i;
@@ -20,7 +19,7 @@ echo "Adding rest nodes as workers to the Swarm..."
 
 TOKEN=`docker-machine ssh $MANAGER docker swarm join-token worker | grep token | awk '{ print $5 }'`
 
-for i in 2 3 4; do
+for i in 2 3 4 5; do
   docker-machine ssh devnode-$i \
     -- docker swarm join --token ${TOKEN} $(docker-machine ip $MANAGER):2377;
 done
@@ -32,7 +31,7 @@ docker-machine ssh $MANAGER \
 
 echo "Preparing Swarm nodes to handle ELK stack..."
 
-for i in 1 2 3 4; do
+for i in 1 2 3 4 5; do
   docker-machine ssh devnode-$i \
     -- sudo sysctl -w vm.max_map_count=262144
 done

@@ -14,7 +14,6 @@ echo "Initializing Swarm mode, first node is the manager..."
 
 docker-machine ssh $MANAGER -- docker swarm init --advertise-addr $(docker-machine ip $MANAGER)
 
-
 echo "Adding rest nodes as workers to the Swarm..."
 
 TOKEN=`docker-machine ssh $MANAGER docker swarm join-token worker | grep token | awk '{ print $5 }'`
@@ -27,7 +26,7 @@ done
 echo "Preparing Swarm manager to handle helper services..."
 
 docker-machine ssh $MANAGER \
-  -- sudo mkdir -p /host/data
+  -- sudo mkdir -p /host/data /host/data2
 
 echo "Preparing Swarm nodes to handle ELK stack..."
 
@@ -41,9 +40,16 @@ echo "Creating secret..."
 eval $(docker-machine env $MANAGER)
 echo "3.va.GO" | docker secret create secret_code -
 
+echo "Create a docker visualizer helper service!!!!"
+
+docker service create --name docker-visualizer \
+    --publish 8080:8080 \
+    --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock \
+    dockersamples/visualizer:latest
+
 echo "Create a local DTR"
 
-docker service create --name registry --publish 50000:5000 registry:2
+docker service create --name docker-registry --publish 50000:5000 registry:2
 
 echo "Build Flask images and push them to local DTR"
 
@@ -69,7 +75,6 @@ CONTAINER_ID=$(docker ps --filter name=flask_elk_web --format "{{.ID}}")
 docker container exec -it $CONTAINER_ID python manage.py recreate_db
 docker container exec -it $CONTAINER_ID python manage.py seed_db
 
-
 echo "Get the IP address..."
 
 sleep 10
@@ -87,7 +92,7 @@ echo "Populate the flask_elk stack with ELK services...."
 docker stack deploy --compose-file=docker-compose-elk-stack.yml flask_elk
 sleep 60
 
-echo "Bring up helper services...."
+echo "Bring up rest CI/CD and MGMT services (Portainer, JenkinsCI etc.)...."
 
 eval $(docker-machine env $MANAGER)
 
@@ -107,7 +112,7 @@ docker service create \
     --name jenkinsCI \
     --publish 8888:8888 \
     --constraint 'node.role == manager' \
-    --mount type=bind,src=/host/data,dst=/data \
+    --mount type=bind,src=/host/data2,dst=/data2 \
     --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock \
-    --network flask_elk_default
+    --network flask_elk_default \
     localhost:50000/jenkins-docker:latest

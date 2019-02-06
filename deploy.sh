@@ -109,4 +109,5 @@ docker service create \
     --constraint 'node.role == manager' \
     --mount type=bind,src=/host/data,dst=/data \
     --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock \
+    --network flask_elk_default
     localhost:50000/jenkins-docker:latest

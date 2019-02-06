@@ -20,11 +20,14 @@ services:
   logstash:
     image: docker.elastic.co/logstash/logstash:6.5.4
     volumes:
-      - ./service/elk/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - ./services/elk/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
     depends_on:
       - elasticsearch
     deploy:
       replicas: 1
+      placement:
+        constraints:
+          - node.role == worker
 
   logspout:
     image: bekt/logspout-logstash

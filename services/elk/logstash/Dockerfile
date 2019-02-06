@@ -1,3 +1,3 @@
-FROM  docker.elastic.co/logstash/logstash:6.4.3
+FROM  docker.elastic.co/logstash/logstash:5.3.2
 
 COPY logstash.conf /usr/share/logstash/pipeline/

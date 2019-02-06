@@ -26,14 +26,27 @@ done
 
 echo "Creating secret..."
 
-eval $(docker-machine env node-1)
+eval $(docker-machine env devnode-1)
 echo "3vaGO" | docker secret create secret_code -
 
+echo "Create a local DTR"
+
+docker service create --name registry --publish 50000:5000 registry:2
+
+echo "Build images and push them to local DTR"
+
+docker build -t localhost:50000/flask-docker-swarm_web:latest -f ./services/web/Dockerfile ./services/web
+docker push localhost:50000/flask-docker-swarm_web:latest
+
+docker build -t localhost:50000/flask-docker-swarm_db:latest -f ./services/db/Dockerfile ./services/db
+docker push localhost:50000/flask-docker-swarm_db:latest
+
+docker build -t localhost:50000/flask-docker-swarm_nginx:latest -f ./services/nginx/Dockerfile ./services/nginx
+docker push localhost:50000/flask-docker-swarm_nginx:latest
 
 echo "Deploying the Flask microservice..."
 
 docker stack deploy --compose-file=docker-compose-swarm.yml flask
-
 
 echo "Create the DB table and apply the seed..."
 

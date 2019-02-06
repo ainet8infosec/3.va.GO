@@ -19,8 +19,6 @@ services:
 
   logstash:
     image: localhost:50000/logstash:6.5.4
-    volumes:
-      - ./services/elk/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
     depends_on:
       - elasticsearch
     deploy:

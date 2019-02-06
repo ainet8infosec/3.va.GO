@@ -62,18 +62,6 @@ services:
     networks:
       - app
 
-  visualizer:
-    image: dockersamples/visualizer:latest
-    ports:
-      - 8080:8080
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-    deploy:
-      placement:
-        constraints: [node.role == manager]
-    networks:
-      - app
-
 networks:
   app:
     driver: overlay

@@ -42,7 +42,7 @@ services:
         delay: 30s
 
   kibana:
-    image: docker.elastic.co/kibana/kibana:6.5.4
+    image: docker.elastic.co/kibana/kibana:6.4.3
     ports:
       - '15601:5601'
     depends_on:

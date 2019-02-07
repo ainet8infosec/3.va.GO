@@ -3,7 +3,9 @@ FROM jenkinsci/jenkins:lts
 USER root
           
 RUN apt-get update -qq \   
-    && apt-get install -qqy apt-transport-https ca-certificates curl gnupg2 software-properties-common    
+    && apt-get install -qqy apt-transport-https ca-certificates curl gnupg2 software-properties-common   
+    
+# Install latest DOCKER-CE using the convenience script
         
 RUN curl -fsSL https://get.docker.com -o get-docker.sh
 

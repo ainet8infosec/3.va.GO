@@ -125,6 +125,7 @@ docker service create \
     
 echo "Build a testCI job for all the previous :D ...."
 
+sleep 10
 eval $(docker-machine env $MANAGER)
 CONTAINER_ID=$(docker ps --filter name=jenkinsCI --format "{{.ID}}")
 JENKINS_USER=$(docker container exec -it $CONTAINER_ID 'cat /run/secrets/jenkins-user')

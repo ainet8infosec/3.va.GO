@@ -111,7 +111,7 @@ docker push localhost:50000/jenkins-docker:latest
 
 docker service create \
     --name jenkinsCI \
-    --publish 8888:8888 \
+    --publish 8888:8080 \
     --constraint 'node.role == manager' \
     --mount type=bind,src=/host/data2,dst=/data2 \
     --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock \

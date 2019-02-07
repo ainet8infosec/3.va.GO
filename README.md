@@ -22,7 +22,9 @@ Portainer accessible via HTTP at IP `docker-machine devnode-1 ip` PORT 9000.
 JenkinsCI accessible via HTTP at IP `docker-machine devnode-1 ip` PORT 8888.
 
 NGINX FLASK frontend accessible via HTTP at IP `docker-machine devnode-1 ip` PORT 80
+
     >available context-path /users for retrieving users table from POSTGRES via JSON
+
     >available context-path /ping for a plain pong JSON reply
  
 KIBANA dashboard accessible via HTTP at IP `docker-machine devnode-1 ip` PORT 15601

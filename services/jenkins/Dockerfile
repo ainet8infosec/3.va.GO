@@ -5,14 +5,10 @@ USER root
 RUN apt-get update -qq \   
     && apt-get install -qqy apt-transport-https ca-certificates curl gnupg2 software-properties-common    
         
-RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
-      
-RUN add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/debian \   
-   $(lsb_release -cs) \   
-   stable"
-        
-RUN apt-get update  -qq \ 
-    && apt-get install docker-ce=18.09.1~ce-3-0~debian-stretch -y
+RUN curl -fsSL https://get.docker.com -o get-docker.sh
+
+RUN chmod +x get-docker.sh
+
+RUN sh get-docker.sh
  
 RUN usermod -aG docker jenkins

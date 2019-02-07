@@ -18,6 +18,6 @@ node('master') {
         sh "docker push localhost:50000/flask-docker-swarm_nginx:latest"
   
     stage 'Stack Integration'
-        sh "docker stack deploy -compose-file=docker-compose-flask-stack.yml flask_elk"
+        sh "docker stack deploy --compose-file=docker-compose-flask-stack.yml flask_elk"
  
 }

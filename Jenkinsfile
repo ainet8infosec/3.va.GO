@@ -57,6 +57,8 @@ node('master') {
           localhost:50000/go4fun:latest"
         sh "sleep 30"
         def response = sh(script: 'curl http://docker-goooo:10100/q=en.wikipedia.org%2Fwiki%2FTrivago' returnStdout: true)
+        //print the response
+        echo '=========================Response===================' + response
         figlet 'Trip....Vacation....Just GO!!!!'
         
  

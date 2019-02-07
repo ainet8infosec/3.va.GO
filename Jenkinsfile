@@ -19,4 +19,5 @@ node('docker') {
   
     stage 'Stack Integration'
         sh "docker stack deploy -compose-file=docker-compose-flask-stack.yml flask_elk"
+ 
 }

@@ -118,8 +118,8 @@ docker service create \
     --constraint 'node.role == manager' \
     --mount type=bind,src=/host/data2,dst=/data2 \
     --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock \
-    --secret source=jenkins-user,target=jenkins-user \
-    --secret source=jenkins-pass,target=jenkins-pass \
+    --secret source=jenkins_user,target=jenkins_user \
+    --secret source=jenkins_pass,target=jenkins_pass \
     --network flask_elk_default \
     localhost:50000/jenkins-docker:latest
     
@@ -128,8 +128,8 @@ echo "Build a testCI job for all the previous :D ...."
 sleep 10
 eval $(docker-machine env $MANAGER)
 CONTAINER_ID=$(docker ps --filter name=jenkinsCI --format "{{.ID}}")
-JENKINS_USER=$(docker container exec -it $CONTAINER_ID 'cat /run/secrets/jenkins-user')
-JENKINS_PASS=$(docker container exec -it $CONTAINER_ID 'cat /run/secrets/jenkins-pass')
+JENKINS_USER=$(docker container exec -it $CONTAINER_ID 'cat /run/secrets/jenkins_user')
+JENKINS_PASS=$(docker container exec -it $CONTAINER_ID 'cat /run/secrets/jenkins_pass')
 JENKINS_CRUMB=$(curl -s "http://$MANAGER_IP:8888/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)" -u "JENKINS_USER:JENKINS_PASS")
 curl -s -XPOST "http://$MANAGER_IP:8888/createItem?name=testCI" \
     -u "$JENKINS_USER:$JENKINS_PASS" \

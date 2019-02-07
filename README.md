@@ -45,6 +45,6 @@ Cleanup everything after playing around via `$ sh cleanup.sh`
 
 ### Approach B
 
-Do A but don't cleanup, instead login to the abovmentioned JenkinsCI instance and fire-up the testCI job...!! NJOY :)
+Do A but don't cleanup, instead login (admin:changeME) to the abovmentioned JenkinsCI instance and fire-up the testCI job...!! NJOY repsonsibly :)
 
 #### PS: Easter-egg GO!!!!

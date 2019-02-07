@@ -48,4 +48,17 @@ node('master') {
         sh "docker stack deploy --compose-file=docker-compose-elk-stack.yml flask_elk"
         sh "sleep 60"
  
+    stage 'GO!!!!'
+        echo 'Ready for recreation....Just GO for it!!'
+        sh "docker build -t localhost:50000/go4fun:latest -f ./services/go/Dockerfile ./services/go" 
+        sh "docker push localhost:50000/go4fun:latest"
+        sh "docker service create --name docker-goooo \
+            --publish 10100:8000 \
+          localhost:50000/go4fun:latest"
+        sh "sleep 30"
+        def response = sh(script: 'curl http://docker-goooo:10100/q=en.wikipedia.org%2Fwiki%2FTrivago' returnStdout: true)
+        figlet 'Trip....Vacation....Just GO!!!!'
+        
+ 
+ 
 }

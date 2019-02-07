@@ -30,3 +30,5 @@ NGINX FLASK frontend accessible via HTTP at IP `docker-machine devnode-1 ip` POR
 KIBANA dashboard accessible via HTTP at IP `docker-machine devnode-1 ip` PORT 15601
 
 Cleanup everything after playing around via `$ sh cleanup.sh`
+
+PS: ####Easter-egg GO!!!!

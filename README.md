@@ -23,7 +23,7 @@ Portainer accessible via HTTP at IP `docker-machine devnode-1 ip` PORT 9000.
 
 JenkinsCI accessible via HTTP at IP `docker-machine devnode-1 ip` PORT 8888.
 
-NGINX FLASK frontend accessible via HTTP at IP `docker-machine devnode-1 ip` PORT 80
+NGINX FLASK frontend accessible via HTTP at IP `docker-machine devnode-1 ip` PORT 80 >>>>
 
     >available context-path /users for retrieving users table from POSTGRES via JSON
 
@@ -33,9 +33,13 @@ KIBANA dashboard accessible via HTTP at IP `docker-machine devnode-1 ip` PORT 15
 
 For Kibana's Dashboard initial parametrization (quote from Inspiration ref#2) >>>>
 
-    >The first time kibana is opened, it will ask to specify a default index pattern. Logstash will create index starting with logstash-, so the default index pattern is logstash-*. Also the Time-field name is @timestamp. This is the field that stores the time when the log entry is made. Click on the Create button to set it up. 
+    >The first time kibana is opened, it will ask to specify a default index pattern. Logstash will create index starting with logstash-, so the default index pattern is logstash-*. 
     
-    >Now go to the Discover tab to see all the log entries. To the left, you can see all the fields indentified from the logs. If you click on any field, you can see the top values and its percentages. The docker.image field will give the docker image used, the docker.name field gives the container name, etc.
+    >Also the Time-field name is @timestamp. This is the field that stores the time when the log entry is made. Click on the Create button to set it up. 
+    
+    >Now go to the Discover tab to see all the log entries. To the left, you can see all the fields indentified from the logs. If you click on any field, you can see the top values and its percentages. 
+    
+    >The docker.image field will give the docker image used, the docker.name field gives the container name, etc.
 
 Cleanup everything after playing around via `$ sh cleanup.sh`
 

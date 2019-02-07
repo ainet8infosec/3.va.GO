@@ -35,10 +35,12 @@ for i in 1 2 3 4 5; do
     -- sudo sysctl -w vm.max_map_count=262144
 done
 
-echo "Creating secret..."
+echo "Creating secrets..."
 
 eval $(docker-machine env $MANAGER)
 echo "3.va.GO" | docker secret create secret_code -
+echo "admin" | docker secret create jenkins_user -
+echo "changeME" | docker secret create jenkins_pass -
 
 echo "Create a docker visualizer helper service on the manager node!!!!"
 
@@ -115,5 +117,9 @@ docker service create \
     --constraint 'node.role == manager' \
     --mount type=bind,src=/host/data2,dst=/data2 \
     --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock \
+    --secret source=jenkins-user,target=jenkins-user \ 
+    --secret source=jenkins-pass,target=jenkins-pass \
     --network flask_elk_default \
     localhost:50000/jenkins-docker:latest
+    
+echo "Build a testCI job for all the previous :D ...."

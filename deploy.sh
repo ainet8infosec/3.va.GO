@@ -128,7 +128,7 @@ eval $(docker-machine env $MANAGER)
 CONTAINER_ID=$(docker ps --filter name=jenkinsCI --format "{{.ID}}")
 JENKINS_USER=$(docker container exec -it $CONTAINER_ID 'cat /run/secrets/jenkins-user')
 JENKINS_PASS=$(docker container exec -it $CONTAINER_ID 'cat /run/secrets/jenkins-pass')
-curl -s -XPOST "http://$(docker-machine ip $MANAGER):8080/createItem?name=testCI" \
+curl -s -XPOST "http://$(docker-machine ip $MANAGER):8888/createItem?name=testCI" \
     -u "$JENKINS_USER:$JENKINS_PASS" \
     --data-binary @testCI.xml \
     -H "Content-Type:text/xml"

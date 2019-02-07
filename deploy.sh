@@ -123,3 +123,14 @@ docker service create \
     localhost:50000/jenkins-docker:latest
     
 echo "Build a testCI job for all the previous :D ...."
+
+eval $(docker-machine env $MANAGER)
+CONTAINER_ID=$(docker ps --filter name=jenkinsCI --format "{{.ID}}")
+JENKINS_USER=$(docker container exec -it $CONTAINER_ID 'cat /run/secrets/jenkins-user')
+JENKINS_PASS=$(docker container exec -it $CONTAINER_ID 'cat /run/secrets/jenkins-pass')
+docker container exec -it $CONTAINER_ID \
+    curl -s -XPOST 'http://localhost:8080/createItem?name=testCI' \
+    -u JENKINS_USER:JENKINS_PASS \
+    --data-binary @testCI.xml \
+    -H "Content-Type:text/xml"
+

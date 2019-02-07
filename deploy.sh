@@ -21,7 +21,7 @@ TOKEN=`docker-machine ssh $MANAGER docker swarm join-token worker | grep token |
 
 for i in 2 3 4 5; do
   docker-machine ssh devnode-$i \
-    -- docker swarm join --token ${TOKEN} $():2377;
+    -- docker swarm join --token ${TOKEN} $MANAGER_IP:2377;
 done
 
 echo "Preparing Swarm manager to handle helper services..."

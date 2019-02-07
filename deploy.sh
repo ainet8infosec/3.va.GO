@@ -9,10 +9,11 @@ for i in 1 2 3 4 5; do
 done
 
 MANAGER=devnode-1
+MANAGER_IP=$(docker-machine ip $MANAGER)
 
 echo "Initializing Swarm mode, first node is the manager..."
 
-docker-machine ssh $MANAGER -- docker swarm init --advertise-addr $(docker-machine ip $MANAGER)
+docker-machine ssh $MANAGER -- docker swarm init --advertise-addr $MANAGER_IP
 
 echo "Adding rest nodes as workers to the Swarm..."
 
@@ -20,7 +21,7 @@ TOKEN=`docker-machine ssh $MANAGER docker swarm join-token worker | grep token |
 
 for i in 2 3 4 5; do
   docker-machine ssh devnode-$i \
-    -- docker swarm join --token ${TOKEN} $(docker-machine ip $MANAGER):2377;
+    -- docker swarm join --token ${TOKEN} $():2377;
 done
 
 echo "Preparing Swarm manager to handle helper services..."
@@ -128,7 +129,7 @@ eval $(docker-machine env $MANAGER)
 CONTAINER_ID=$(docker ps --filter name=jenkinsCI --format "{{.ID}}")
 JENKINS_USER=$(docker container exec -it $CONTAINER_ID 'cat /run/secrets/jenkins-user')
 JENKINS_PASS=$(docker container exec -it $CONTAINER_ID 'cat /run/secrets/jenkins-pass')
-curl -s -XPOST "http://$(docker-machine ip $MANAGER):8888/createItem?name=testCI" \
+curl -s -XPOST "http://$MANAGER_IP:8888/createItem?name=testCI" \
     -u "$JENKINS_USER:$JENKINS_PASS" \
     --data-binary @testCI.xml \
     -H "Content-Type:text/xml"

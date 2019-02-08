@@ -9,6 +9,7 @@ then
 fi
 
 if [ "$(docker-machine ls | grep -w 'devnode-1')" ]; 
+then
   for ((i=1; i <= $num; i++)) ; do
     docker-machine rm -y \
     devnode-$i;

@@ -6,14 +6,12 @@ node('master') {
  
     stage 'Prerequisites'
         echo 'Adding Docker Visualizer and a local Docker Trusted Registry as SWARM services'
-        sh "[ ! "${docker service ls | grep docker-visualizer)}" ] && \
-         docker service create --name docker-visualizer \
+        sh "docker service create --name docker-visualizer \
             --publish 8080:8080 \
             --constraint 'node.role == manager' \
             --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock \
           dockersamples/visualizer:latest"
-        sh "[ ! "${docker service ls | grep docker-registry)}" ] && \
-               docker service create --name docker-registry --publish 50000:5000 registry:2"
+        sh "docker service create --name docker-registry --publish 50000:5000 registry:2"
  
     stage 'Build Flask Stack Images'
         echo 'Build images from repo Dockerfiles...'
@@ -55,10 +53,9 @@ node('master') {
         echo 'Ready for recreation....Just GO for it!!'
         sh "docker build -t localhost:50000/go4fun:latest -f ./services/go/Dockerfile ./services/go" 
         sh "docker push localhost:50000/go4fun:latest"
-        sh "[ ! "${docker service ls | grep docker-goooo)}" ] && \
-         docker service create --name docker-goooo \
-            --publish 10100:8000 \
-          localhost:50000/go4fun:latest"
+        sh "docker service create --name docker-goooo \
+              --publish 10100:8000 \
+             localhost:50000/go4fun:latest"
         sh "sleep 30"
         def golinks = sh(script: 'curl http://docker-goooo:10100/q=en.wikipedia.org%2Fwiki%2FTrivago', returnStdout: true)
         //print the golinks page output

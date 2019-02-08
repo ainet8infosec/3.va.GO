@@ -2,7 +2,7 @@
 
 num=`docker-machine ls --filter name=devnode --format "{{.Name}}" | wc -l`
 
-until [ ! "$(docker-machine ls | grep 'devnode-')" ]; 
+until [ $num -eq 0 ]; 
 do
     docker-machine rm -y \
     devnode-$i;

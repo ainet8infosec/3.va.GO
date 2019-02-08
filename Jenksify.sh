@@ -77,9 +77,9 @@ JENKINS_PASS=$(docker container exec -it $CONTAINER_ID cat /run/secrets/jenkins-
 #JENKINS_TOKEN=$(echo -n $JENKINS_TOKEN | tr -d '\r')   
 #JENKINS_CRUMB=$(curl -s "http://${MANAGER_IP}:8888/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)" -u ${JENKINS_USER}:${JENKINS_PASS})
      
-curl -s -XPOST "${MANAGER_IP}:8888/createItem?name=testCI" \    
-    -u ${JENKINS_USER}:${JENKINS_PASS} \   
-    --data-binary @testCI.xml \ 
+curl -s -XPOST "${MANAGER_IP}:8888/createItem?name=testCI" \
+    -u ${JENKINS_USER}:${JENKINS_PASS} \
+    --data-binary @testCI.xml \
     -H "Content-Type:text/xml"
     
 sleep 8

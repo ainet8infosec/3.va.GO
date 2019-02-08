@@ -108,10 +108,10 @@ echo "NGINX is running on..."
 
 docker-machine ip $(docker service ps -f "desired-state=running" --format "{{.Node}}" flask_elk_nginx)
 
-echo "That's all folks for APPROACH B!!!!...or..."
+echo "That's all folks for APPROACH B!!!!...or maybe..."
 
-echo "CATCHTHEEGG is...."
+echo "....CATCHTHEEGG is...."
 GO_IP=$(docker-machine ip $(docker service ps -f "desired-state=running" --format "{{.Node}}" docker-goooo))
 curl ${GO_IP}:10100/\?q\=en.wikipedia.org%2Fwiki%2FTrivago
 
-echo "Now, that's more about it.-"
+echo "Now, that's more LIKE IT.-"

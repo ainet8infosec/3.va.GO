@@ -64,7 +64,7 @@ docker service create \
 
 echo "Build a testCI job for all previous approach steps  :D ...."
       
-sleep 8
+sleep 20
    
 eval $(docker-machine env $MANAGER)
 CONTAINER_ID=$(docker ps --filter name=jenkinsCI --format "{{.ID}}")

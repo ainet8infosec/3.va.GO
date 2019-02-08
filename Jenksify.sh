@@ -110,6 +110,7 @@ eval $(docker-machine env $MANAGER)
 echo "NGINX is running on..."
 
 docker-machine ip $(docker service ps -f "desired-state=running" --format "{{.Node}}" flask_elk_nginx)
+curl ${MANAGER_IP}/ping
 
 echo "That's all folks for APPROACH B!!!!...or maybe..."
 

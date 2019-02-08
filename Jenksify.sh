@@ -50,7 +50,7 @@ echo "Bring up CI/CD server..."
 
 eval $(docker-machine env $MANAGER)
 
-docker build jenkins-docker:latest -f ./services/jenkins/Dockerfile ./services/jenkins
+docker build -t jenkins-docker:latest -f ./services/jenkins/Dockerfile ./services/jenkins
 
 docker service create \
     --name jenkinsCI \

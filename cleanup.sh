@@ -4,7 +4,7 @@ num=`docker-machine ls --filter name=devnode --format "{{.Name}}" | wc -l`
 
 if [ ! "$(docker service ls | grep devnode-1)" ]; 
 then
-  for ((i=$num+3; i <= $num+7; i++)) ; do
+  for ((i=$num+3; i <= 2*($num+1); i++)) ; do
     docker-machine rm -y \
     devnode-$i;
   done

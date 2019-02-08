@@ -2,7 +2,7 @@ FROM jenkinsci/jenkins:lts
       
 USER root
 
-# Install Jenkins as auto as possible (no setup-wizard) 
+# Installs Jenkins as auto as possible (no setup-wizard) 
 
 ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
 
@@ -15,7 +15,7 @@ RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
 RUN apt-get update -qq \   
     && apt-get install -qqy apt-transport-https ca-certificates curl gnupg2 software-properties-common   
     
-# Install latest DOCKER-CE using the convenience script
+# Installs latest DOCKER-CE using the convenience script
         
 RUN curl -fsSL https://get.docker.com -o get-docker.sh
 
@@ -24,3 +24,9 @@ RUN chmod +x get-docker.sh
 RUN sh get-docker.sh
  
 RUN usermod -aG docker jenkins
+
+# Installs docker-compose
+# RUN curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" \
+#      -o /usr/local/bin/docker-compose
+      
+# RUN chmod +x /usr/local/bin/docker-compose

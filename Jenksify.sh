@@ -91,7 +91,7 @@ echo "Recreate and Seed the POSTGRES...."
 
 sleep 120
 
-until [ "$(docker service ls | grep flask_elk_web)"]
+until [ "$(docker service ls | grep flask_elk_web)" ]
 do
 NODE=$(docker service ps -f "desired-state=running" --format "{{.Node}}" flask_elk_web) 
 done

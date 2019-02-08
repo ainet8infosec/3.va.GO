@@ -113,5 +113,5 @@ echo "That's all folks for APPROACH B!!!!...or maybe..."
 echo "....CATCHTHEEGG is...."
 GO_IP=$(docker-machine ip $(docker service ps -f "desired-state=running" --format "{{.Node}}" docker-goooo))
 curl ${GO_IP}:10100/\?q\=en.wikipedia.org%2Fwiki%2FTrivago
-
+curl ${GO_IP}:10100/\?q\=trivago.com
 echo "Now, that's more LIKE IT.-"

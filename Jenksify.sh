@@ -64,7 +64,7 @@ docker service create \
 
 echo "Build a testCI job for all previous approach steps  :D ...."
       
-sleep 20
+sleep 60
    
 eval $(docker-machine env $MANAGER)
 CONTAINER_ID=$(docker ps --filter name=jenkinsCI --format "{{.ID}}")
@@ -82,7 +82,7 @@ curl -s -XPOST "${MANAGER_IP}:8888/createItem?name=testCI" \
     --data-binary @testCI.xml \
     -H "Content-Type:text/xml"
     
-sleep 8
+sleep 10
 
 echo "RUN the testCI job remotely....and NJOY :D !!!!"
 

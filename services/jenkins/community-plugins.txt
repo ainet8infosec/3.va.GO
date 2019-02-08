@@ -71,3 +71,4 @@ matrix-auth
 pam-auth
 ldap
 email-ext
+figlet-buildstep

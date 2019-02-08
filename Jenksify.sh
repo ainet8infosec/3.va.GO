@@ -88,4 +88,24 @@ echo "RUN the testCI job remotely....and NJOY :D !!!!"
 
 curl -s -u ${JENKINS_USER}:${JENKINS_PASS} http://${MANAGER_IP}:8888/job/testCI/build"
 
+echo "Recreate and Seed the POSTGRES...."
+
+sleep 60
+
+NODE=$(docker service ps -f "desired-state=running" --format "{{.Node}}" flask_elk_web)        
+eval $(docker-machine env $NODE)      
+CONTAINER_ID=$(docker ps --filter name=flask_elk_web --format "{{.ID}}")  
+docker container exec -it $CONTAINER_ID python manage.py recreate_db     
+docker container exec -it $CONTAINER_ID python manage.py seed_db
+
+echo "Get the IP address..."
+
+sleep 10
+      
+eval $(docker-machine env $MANAGER)
+     
+echo "NGINX is running on..."
+
+docker-machine ip $(docker service ps -f "desired-state=running" --format "{{.Node}}" flask_elk_nginx)
+
 echo "That's all folks for APPROACH B!!!!.-"

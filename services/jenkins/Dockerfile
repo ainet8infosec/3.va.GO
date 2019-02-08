@@ -1,5 +1,7 @@
+# Not the best, consider alpine 
 FROM jenkinsci/jenkins:lts
-      
+
+# Not the best, consider sudoer
 USER root
 
 # Installs Jenkins as auto as possible (no setup-wizard) 

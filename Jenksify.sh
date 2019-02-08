@@ -85,7 +85,7 @@ sleep 10
 
 echo "RUN the testCI job remotely....and NJOY :D !!!!"
 
-curl -s -u ${JENKINS_USER}:${JENKINS_PASS} ${MANAGER_IP}:8888/job/testCI/build
+curl -s -u ${JENKINS_USER}:${JENKINS_PASS} -X POST ${MANAGER_IP}:8888/job/testCI/build
 
 echo "Recreate and Seed the POSTGRES...."
 

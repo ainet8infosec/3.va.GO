@@ -77,7 +77,7 @@ JENKINS_PASS=$(docker container exec -it $CONTAINER_ID cat /run/secrets/jenkins-
 #JENKINS_TOKEN=$(echo -n $JENKINS_TOKEN | tr -d '\r')   
 #JENKINS_CRUMB=$(curl -s "http://${MANAGER_IP}:8888/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)" -u ${JENKINS_USER}:${JENKINS_PASS})
      
-curl -s -XPOST "http://${MANAGER_IP}:8888/createItem?name=testCI" \    
+curl -s -XPOST "${MANAGER_IP}:8888/createItem?name=testCI" \    
     -u ${JENKINS_USER}:${JENKINS_PASS} \   
     --data-binary @testCI.xml \ 
     -H "Content-Type:text/xml"
@@ -86,7 +86,7 @@ sleep 8
 
 echo "RUN the testCI job remotely....and NJOY :D !!!!"
 
-curl -s -u ${JENKINS_USER}:${JENKINS_PASS} http://${MANAGER_IP}:8888/job/testCI/build"
+curl -s -u ${JENKINS_USER}:${JENKINS_PASS} ${MANAGER_IP}:8888/job/testCI/build
 
 echo "Recreate and Seed the POSTGRES...."
 
@@ -112,6 +112,6 @@ echo "That's all folks for APPROACH B!!!!...or..."
 
 echo "CATCHTHEEGG is...."
 GO_IP=$(docker-machine ip $(docker service ps -f "desired-state=running" --format "{{.Node}}" docker-goooo))
-curl http://${GO_IP}:10100/?q=en.wikipedia.org%2Fwiki%2FTrivago
+curl ${GO_IP}:10100/\?q\=en.wikipedia.org%2Fwiki%2FTrivago
 
 echo "Now, that's more about it.-"

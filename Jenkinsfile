@@ -22,11 +22,12 @@ node('master') {
         sh "docker push localhost:50000/flask-docker-swarm_db:latest"
         sh "docker build -t localhost:50000/flask-docker-swarm_nginx:latest -f ./services/nginx/Dockerfile ./services/nginx"
         sh "docker push localhost:50000/flask-docker-swarm_nginx:latest"
-  /*
+  
     stage 'Flask Stack Integration'
         echo 'Pull from DTR and Deploy the built Flask images to the SWARM'
         sh "docker stack deploy --compose-file=docker-compose-flask-stack.yml flask_elk"
         sh "sleep 60"
+ /*
         echo 'Prep-init the DB'
         sh "docker-compose --file=docker-compose-flask-stack.yml run web python manage.py recreate_db"
         sh "docker-compose --file=docker-compose-flask-stack.yml run web python manage.py seed_db"

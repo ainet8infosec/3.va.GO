@@ -53,10 +53,14 @@ JenkinsCI accessible via HTTP at IP docker-machine devnode-1 ip PORT 8888.
 
 Login (admin:changeME) to a JenkinsCI instance and observe the testCI job...!! 
 
+Expected Additional Dockerized/Jenksified Outcome --> NGINX+FLASK+POSTGRES+ELK+VISUALIZER+EASTEREGG
+
+Obviously the testCI is a just a simple example of bringing up the above micro-services-as-code; several build/deploy/test steps can be added or other jobs created to handle the CI/CD needs in the DevOps way.... 
+
 Cleanup everything after playing around via `$ sh cleanup.sh`.
 
 Tip: Avoid mixing A+B approaches...
 
 *NJOY repsonsibly :)*
 
-#### PS: Easter-egg GO!!!!
+#### PS:-> Easter-egg GO!!!!

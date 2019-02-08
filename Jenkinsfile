@@ -27,10 +27,9 @@ node('master') {
         echo 'Pull from DTR and Deploy the built Flask images to the SWARM'
         sh "docker stack deploy --compose-file=docker-compose-flask-stack.yml flask_elk"
         sh "sleep 60"
-        sh "CONTAINER_ID=${docker ps --filter name=flask_elk_web --format "{{.ID}}"}"
         echo 'Prep-init the DB'
-        sh "docker container exec -it ${CONTAINER_ID} python manage.py recreate_db"
-        sh "docker container exec -it ${CONTAINER_ID} python manage.py seed_db"
+        sh "docker container exec -it ${docker ps --filter name=flask_elk_web --format "{{.ID}}"} python manage.py recreate_db"
+        sh "docker container exec -it ${docker ps --filter name=flask_elk_web --format "{{.ID}}"} python manage.py seed_db"
  
     stage 'Test Flask Stack Services'
         echo 'Curl-P-ing...'

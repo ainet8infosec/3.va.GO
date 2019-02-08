@@ -101,7 +101,6 @@ CONTAINER_ID=$(docker ps --filter name=flask_elk_web --format "{{.ID}}")
 docker container exec -it $CONTAINER_ID python manage.py recreate_db     
 docker container exec -it $CONTAINER_ID python manage.py seed_db
 
-
 echo "Get the IP address..."
 
 sleep 10

@@ -30,8 +30,8 @@ node('master') {
         sh "docker stack deploy --compose-file=docker-compose-flask-stack.yml flask_elk"
         sh "sleep 60"
         echo 'Prep-init the DB'
-        sh "docker container exec -it ${docker ps --filter name=flask_elk_web --format "{{.ID}}"} python manage.py recreate_db"
-        sh "docker container exec -it ${docker ps --filter name=flask_elk_web --format "{{.ID}}"} python manage.py seed_db"
+        sh "docker-compose --file=docker-compose-flask-stack.yml run web python manage.py recreate_db"
+        sh "docker-compose --file=docker-compose-flask-stack.yml run web python manage.py seed_db"
  
     stage 'Test Flask Stack Services'
         echo 'Curl-P-ing...'
@@ -55,7 +55,8 @@ node('master') {
         echo 'Ready for recreation....Just GO for it!!'
         sh "docker build -t localhost:50000/go4fun:latest -f ./services/go/Dockerfile ./services/go" 
         sh "docker push localhost:50000/go4fun:latest"
-        sh "docker service create --name docker-goooo \
+        sh "[ ! "${docker service ls | grep docker-goooo)}" ] && \
+         docker service create --name docker-goooo \
             --publish 10100:8000 \
           localhost:50000/go4fun:latest"
         sh "sleep 30"

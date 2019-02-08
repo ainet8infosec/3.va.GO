@@ -89,7 +89,7 @@ curl -s -u ${JENKINS_USER}:${JENKINS_PASS} ${MANAGER_IP}:8888/job/testCI/build
 
 echo "Recreate and Seed the POSTGRES...."
 
-sleep 60
+sleep 120
 
 NODE=$(docker service ps -f "desired-state=running" --format "{{.Node}}" flask_elk_web)        
 eval $(docker-machine env $NODE)      

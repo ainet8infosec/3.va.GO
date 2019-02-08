@@ -44,7 +44,7 @@ echo "3.va.GO" | docker secret create secret_code -
 echo "admin" | docker secret create jenkins_user -
 echo "changeME" | docker secret create jenkins_pass -
 #Use pwgen 16 to get random 16char string
-echo "Phu1OoGh0quah9th" | docker secret create jenkins_token -
+#echo "Phu1OoGh0quah9th" | docker secret create jenkins_token -
 
 echo "Bring up CI/CD server..."
 
@@ -73,9 +73,9 @@ JENKINS_USER=$(echo -n $JENKINS_USER | tr -d '\r')
 JENKINS_PASS=$(docker container exec -it $CONTAINER_ID cat /run/secrets/jenkins-pass)    
 JENKINS_PASS=$(echo -n $JENKINS_PASS | tr -d '\r')   
 JENKINS_PASS=$(docker container exec -it $CONTAINER_ID cat /run/secrets/jenkins-pass)     
-JENKINS_TOKEN=$(docker container exec -it $CONTAINER_ID cat /run/secrets/jenkins-token)    
-JENKINS_TOKEN=$(echo -n $JENKINS_TOKEN | tr -d '\r')   
-JENKINS_CRUMB=$(curl -s "http://${MANAGER_IP}:8888/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)" -u ${JENKINS_USER}:${JENKINS_PASS})
+#JENKINS_TOKEN=$(docker container exec -it $CONTAINER_ID cat /run/secrets/jenkins-token)    
+#JENKINS_TOKEN=$(echo -n $JENKINS_TOKEN | tr -d '\r')   
+#JENKINS_CRUMB=$(curl -s "http://${MANAGER_IP}:8888/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)" -u ${JENKINS_USER}:${JENKINS_PASS})
      
 curl -s -XPOST "http://${MANAGER_IP}:8888/createItem?name=testCI" \    
     -u ${JENKINS_USER}:${JENKINS_PASS} \   
@@ -84,6 +84,8 @@ curl -s -XPOST "http://${MANAGER_IP}:8888/createItem?name=testCI" \
     
 sleep 8
 
-curl -s -u ${JENKINS_USER}:${JENKINS_PASS} http://${MANAGER_IP}:8888/job/testCI/build?token=${JENKINS_TOKEN} -H "$JENKINS_CRUMB"
+echo "RUN the testCI job remotely....and NJOY :D !!!!"
+
+curl -s -u ${JENKINS_USER}:${JENKINS_PASS} http://${MANAGER_IP}:8888/job/testCI/build"
 
 echo "That's all folks for APPROACH B!!!!.-"

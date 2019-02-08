@@ -22,7 +22,7 @@ node('master') {
         sh "docker push localhost:50000/flask-docker-swarm_db:latest"
         sh "docker build -t localhost:50000/flask-docker-swarm_nginx:latest -f ./services/nginx/Dockerfile ./services/nginx"
         sh "docker push localhost:50000/flask-docker-swarm_nginx:latest"
-  
+  /*
     stage 'Flask Stack Integration'
         echo 'Pull from DTR and Deploy the built Flask images to the SWARM'
         sh "docker stack deploy --compose-file=docker-compose-flask-stack.yml flask_elk"
@@ -38,7 +38,7 @@ node('master') {
         echo 'Should be pong ;)'
         //print the response
         echo '=========================Response===================' + response
- 
+ */
     stage 'Build ELK Stack Images'
         echo 'Build ELK images and push them to local DTR'
         sh "docker build -t localhost:50000/logstash:5.3.2 -f ./services/elk/logstash/Dockerfile ./services/elk/logstash"

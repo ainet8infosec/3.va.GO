@@ -6,12 +6,14 @@ node('master') {
  
     stage 'Prerequisites'
         echo 'Adding Docker Visualizer and a local Docker Trusted Registry as SWARM services'
-        sh "docker service create --name docker-visualizer \
+        sh "[ ! "${docker service ls | grep docker-visualizer)}" ] && \
+         docker service create --name docker-visualizer \
             --publish 8080:8080 \
             --constraint 'node.role == manager' \
             --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock \
           dockersamples/visualizer:latest"
-        sh "docker service create --name docker-registry --publish 50000:5000 registry:2"
+        sh "[ ! "${docker service ls | grep docker-registry)}" ] && \
+               docker service create --name docker-registry --publish 50000:5000 registry:2"
  
     stage 'Build Flask Stack Images'
         echo 'Build images from repo Dockerfiles...'

@@ -72,3 +72,4 @@ pam-auth
 ldap
 email-ext
 figlet-buildstep
+envinject

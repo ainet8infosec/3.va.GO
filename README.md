@@ -11,23 +11,25 @@
 
 Assuming a 16GB-min-RAM DEV *niX node with latest docker-ce installed, alongside docker-machine and virtualbox for Docker Swarm enablement and simulation.
 
-### Approach A
+### Approach A, the get a first-impression path...
 
-Clone this repo and run a first deployment with `$ sh deploy.sh`
+Clone this repo and run a first deployment with `$ sh deploy.sh`.
 
-Expected Dockerized Outcome --> NGINX+FLASK+POSTGRES+ELK+VISUALIZER+PORTAINER+JENKINSCI 
+Expected Dockerized Outcome --> NGINX+FLASK+POSTGRES+ELK+VISUALIZER+PORTAINER+JENKINSCI
 
 Visualizer accessible via HTTP at IP `docker-machine devnode-1 ip` PORT 8080.
 
 Portainer accessible via HTTP at IP `docker-machine devnode-1 ip` PORT 9000.
 
-JenkinsCI accessible via HTTP at IP `docker-machine devnode-1 ip` PORT 8888.
+JenkinsCI accessible via HTTP at IP docker-machine devnode-1 ip PORT 8888.
 
 NGINX FLASK frontend accessible via HTTP at IP `docker-machine devnode-1 ip` PORT 80 >>>>
 
     >available context-path /users for retrieving users table from POSTGRES via JSON
 
     >available context-path /ping for a plain pong JSON reply
+    
+`docker service scale flask_elk_web=3` can scale-up the serving webapp nodes on the fly....  
  
 KIBANA dashboard accessible via HTTP at IP `docker-machine devnode-1 ip` PORT 15601
 
@@ -41,11 +43,19 @@ For Kibana's Dashboard initial parametrization (quote from Inspiration ref#2) >>
     
     >The docker.image field will give the docker image used, the docker.name field gives the container name, etc.
 
-Cleanup everything after playing around via `$ sh cleanup.sh`
+Cleanup everything after playing around via `$ sh cleanup.sh`.
 
-### Approach B
+### Approach B, the docker-jenkins route...
 
-Do A but don't cleanup, instead login (admin:changeME) to the abovmentioned JenkinsCI instance and fire-up the testCI job...!! 
+Clone this repo but run a different Swarm deployment this time with `$ sh Jenksify.sh`.
+
+JenkinsCI accessible via HTTP at IP docker-machine devnode-1 ip PORT 8888.
+
+Login (admin:changeME) to a JenkinsCI instance and observe the testCI job...!! 
+
+Cleanup everything after playing around via `$ sh cleanup.sh`.
+
+Tip: Avoid mixing A+B approaches...
 
 *NJOY repsonsibly :)*
 

@@ -116,6 +116,11 @@ curl ${MANAGER_IP}/ping
 echo "That's all folks for APPROACH B!!!!...or maybe..."
 
 echo "....CATCHTHEEGG is...."
+until [ "$(docker service ls | grep docker-goooo)" ]
+do
+GO_NODE=$(docker service ps --format "{{.Node}}" docker-goooo) 
+done
+sleep 30
 GO_IP=$(docker-machine ip $(docker service ps -f "desired-state=running" --format "{{.Node}}" docker-goooo))
 curl ${GO_IP}:10100/\?q\=en.wikipedia.org%2Fwiki%2FTrivago
 curl ${GO_IP}:10100/\?q\=trivago.com

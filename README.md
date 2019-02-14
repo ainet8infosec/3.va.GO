@@ -61,6 +61,6 @@ Cleanup everything after playing around via `$ sh cleanup.sh`.
 
 Tip: Avoid mixing A+B approaches...
 
-*NJOY repsonsibly :)*
+*NJOY responsibly :)*
 
 #### PS:-> Easter-egg GO!!!!
